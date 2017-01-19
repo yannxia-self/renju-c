@@ -78,7 +78,8 @@ int is_win(int x, int y)
     int max_same_piece_size = 1;
     char point_piece = get_piece(x, y);
 
-    if(point_piece == '*'){
+    if (point_piece == '*')
+    {
         return 0;
     }
 
@@ -89,14 +90,16 @@ int is_win(int x, int y)
         max_same_piece_size++;
         y--;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
 
     while (get_piece(x, y + 1) == point_piece)
     {
         max_same_piece_size++;
         y++;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
 
     if (max_same_piece_size >= 5)
     {
@@ -110,13 +113,15 @@ int is_win(int x, int y)
         max_same_piece_size++;
         x--;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     while (get_piece(x + 1, y) == point_piece)
     {
         max_same_piece_size++;
         x++;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     if (max_same_piece_size >= 5)
     {
         return 1;
@@ -130,20 +135,21 @@ int is_win(int x, int y)
         x--;
         y--;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     while (get_piece(x + 1, y + 1) == point_piece)
     {
         max_same_piece_size++;
         x++;
         y++;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     if (max_same_piece_size >= 5)
     {
         return 1;
     }
     max_same_piece_size = 1;
-
 
     //case 右斜
     while (get_piece(x - 1, y + 1) == point_piece)
@@ -152,19 +158,21 @@ int is_win(int x, int y)
         x--;
         y++;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     while (get_piece(x + 1, y - 1) == point_piece)
     {
         max_same_piece_size++;
         x++;
         y--;
     }
-    x = a; y= b;
+    x = a;
+    y = b;
     if (max_same_piece_size >= 5)
     {
         return 1;
     }
-    
+
     return 0;
 }
 
@@ -175,7 +183,8 @@ int judge()
     {
         for (j = 0; j < CHESSBOARD_SIZE; j++)
         {
-            if(is_win(i, j)){
+            if (is_win(i, j))
+            {
                 printf(" 恭喜玩家%c 获得胜利!", player == 'A' ? 'B' : 'A');
                 return 0;
             }
@@ -184,16 +193,32 @@ int judge()
     return 1;
 }
 
-char *to_piece(int x, int y){
-    if(chessboard[x][y] == '*'){
+char *to_piece(int x, int y)
+{
+    if (chessboard[x][y] == '*')
+    {
         return "*";
     }
-   return chessboard[x][y] == 'A' ? " ◉" : " ◎";
+    return chessboard[x][y] == 'A' ? " ◉" : " ◎";
+}
+
+void clearscr(void)
+{
+#ifdef _WIN32
+    system("cls");
+#elif defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+    system("clear");
+//add some other OSes here if needed
+#else
+#error "OS not supported."
+//you can also throw an exception indicating the function can't be used
+#endif
 }
 
 void draw_chessboard()
 {
-    system("clear"); //clear sreen
+    // system("clear"); //clear sreen
+    clearscr();
 
     int i, j;
     printf("   ");
@@ -208,17 +233,18 @@ void draw_chessboard()
         printf(" %2d", i + 1);
         for (j = 0; j < CHESSBOARD_SIZE; j++)
         {
-            printf(" %2s", to_piece(i,j));
+            printf(" %2s", to_piece(i, j));
         }
         printf("\n");
     }
 }
 
-void test(){
-     chessboard[0][0] = 'A';
-     chessboard[1][1] = 'A';
-     chessboard[2][2] = 'A';
-     chessboard[3][3] = 'A';
+void test()
+{
+    chessboard[0][0] = 'A';
+    chessboard[1][1] = 'A';
+    chessboard[2][2] = 'A';
+    chessboard[3][3] = 'A';
 }
 
 void init()
@@ -232,8 +258,8 @@ void init()
         }
     }
 
-    if(DEBUG){
+    if (DEBUG)
+    {
         test();
     }
-
 }
