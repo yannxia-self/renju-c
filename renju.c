@@ -42,7 +42,7 @@ int check_arranged(int x, int y)
 
     if (chessboard[x - 1][y - 1] != '*')
     {
-        printf(" 此位置已有棋子,请重新输入", CHESSBOARD_SIZE);
+        printf(" 此位置已有棋子,请重新输入");
         return 1;
     }
 }
