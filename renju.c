@@ -12,7 +12,7 @@ int is_win(int, int);         //检测此位置是否有五颗连 1有  0没有
 #define BETWEEN_IN_SIZE(x) \
     ((x) > 0 && (x) <= CHESSBOARD_SIZE)
 #define LOG(FormatString, ...) printf("(%s:%d)" FormatString "\n", __FUNCTION__, __LINE__, __VA_ARGS__)
-#define DEBUG 1
+#define DEBUG 0
 
 char chessboard[CHESSBOARD_SIZE][CHESSBOARD_SIZE]; //整个棋盘
 char player = 'A';
@@ -184,6 +184,13 @@ int judge()
     return 1;
 }
 
+char *to_piece(int x, int y){
+    if(chessboard[x][y] == '*'){
+        return "*";
+    }
+   return chessboard[x][y] == 'A' ? " ◉" : " ◎";
+}
+
 void draw_chessboard()
 {
     system("clear"); //clear sreen
@@ -201,7 +208,7 @@ void draw_chessboard()
         printf(" %2d", i + 1);
         for (j = 0; j < CHESSBOARD_SIZE; j++)
         {
-            printf(" %2c", chessboard[i][j]);
+            printf(" %2s", to_piece(i,j));
         }
         printf("\n");
     }
